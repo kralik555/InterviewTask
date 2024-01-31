@@ -2,15 +2,17 @@ version: '3'
 services:
   db:
     image: postgres
+    container_name: postgres
     environment:
       POSTGRES_DB: flats
       POSTGRES_USER: kraljak
       POSTGRES_PASSWORD: 123456
+
   web:
     build: .
-    command: python run.py
+    container_name: web
     volumes:
-      - .:/code
+      - .:/app
     ports:
       - "8080:8080"
     depends_on:

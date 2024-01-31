@@ -10,24 +10,13 @@ This takes me to other pages - do that 25 times? That seems stupid but could wor
 response.css('div._15Md1MuBeW62jbm5iL0XqR > div > a > img::attr(src)').getall()
 This gets all images from the divs with the correct class - the images of flats
 
-Just got some results, gonna try building the database and webpage since I can't get all the proper results from the page right now so I will psotpone that to later
-['Prodej bytu 2+kk 58\xa0m²',
- 'Prodej bytu 2+kk 47\xa0m²',
- 'Prodej bytu 3+1\xa082\xa0m²',
- 'Prodej bytu 2+kk 65\xa0m²',
- 'Prodej bytu 3+1\xa083\xa0m²',
- 'Prodej bytu 3+kk 74\xa0m²',
- 'Prodej bytu 1+1\xa039\xa0m²',
- 'Prodej bytu 2+kk 70\xa0m²',
- 'Prodej bytu 2+kk 61\xa0m²',
- 'Prodej bytu 2+kk 40\xa0m²',
- 'Prodej bytu 4+kk 107\xa0m²',
- 'Prodej bytu 2+kk 43\xa0m²',
- 'Prodej bytu 2+kk 65\xa0m²',
- 'Prodej bytu 1+1\xa046\xa0m²',
- 'Prodej bytu 3+1\xa088\xa0m²',
- 'Prodej bytu 2+1\xa039\xa0m²',
- 'Prodej bytu 1+1\xa049\xa0m²',
- 'Prodej bytu 2+kk 45\xa0m²',
- 'Prodej bytu 3+1\xa062\xa0m²',
- 'Prodej bytu 4+kk 104\xa0m²']
+Rest of docker-compose
+  web:
+    build: .
+    command: python main.py
+    volumes:
+      - .:/code
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
