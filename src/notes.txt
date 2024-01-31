@@ -1,0 +1,33 @@
+Use scrapy framework to scrape the first 500 items (title, image url) from sreality.cz (flats, sell) and save it in the Postgresql database. Implement a simple HTTP server in python and show these 500 items on a simple page (title and image) and put everything to single docker compose command so that I can just run "docker-compose up" in the Github repository and see the scraped ads on http://127.0.0.1:8080 page.
+
+
+scrapy shell https://www.sreality.cz/hledani/prodej/byty?_escaped_fragment_=
+This is needed to access the page with results
+
+https://www.sreality.cz/hledani/prodej/byty?strana=3
+This takes me to other pages - do that 25 times? That seems stupid but could work
+
+response.css('div._15Md1MuBeW62jbm5iL0XqR > div > a > img::attr(src)').getall()
+This gets all images from the divs with the correct class - the images of flats
+
+Just got some results, gonna try building the database and webpage since I can't get all the proper results from the page right now so I will psotpone that to later
+['Prodej bytu 2+kk 58\xa0m²',
+ 'Prodej bytu 2+kk 47\xa0m²',
+ 'Prodej bytu 3+1\xa082\xa0m²',
+ 'Prodej bytu 2+kk 65\xa0m²',
+ 'Prodej bytu 3+1\xa083\xa0m²',
+ 'Prodej bytu 3+kk 74\xa0m²',
+ 'Prodej bytu 1+1\xa039\xa0m²',
+ 'Prodej bytu 2+kk 70\xa0m²',
+ 'Prodej bytu 2+kk 61\xa0m²',
+ 'Prodej bytu 2+kk 40\xa0m²',
+ 'Prodej bytu 4+kk 107\xa0m²',
+ 'Prodej bytu 2+kk 43\xa0m²',
+ 'Prodej bytu 2+kk 65\xa0m²',
+ 'Prodej bytu 1+1\xa046\xa0m²',
+ 'Prodej bytu 3+1\xa088\xa0m²',
+ 'Prodej bytu 2+1\xa039\xa0m²',
+ 'Prodej bytu 1+1\xa049\xa0m²',
+ 'Prodej bytu 2+kk 45\xa0m²',
+ 'Prodej bytu 3+1\xa062\xa0m²',
+ 'Prodej bytu 4+kk 104\xa0m²']
