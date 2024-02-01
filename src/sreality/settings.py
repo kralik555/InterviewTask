@@ -91,3 +91,19 @@ ROBOTSTXT_OBEY = False
 REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
+
+# Enable or add Splash to the downloader middleware
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy_splash.SplashCookiesMiddleware': 723,
+    'scrapy_splash.SplashMiddleware': 725,
+    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
+}
+
+# Set Splash server address
+SPLASH_URL = 'http://localhost:8050'
+
+# Use a custom DUPEFILTER_CLASS
+DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
+
+# If you use Scrapy's HTTP cache, SplashAwareFSCacheStorage is recommended
+HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'

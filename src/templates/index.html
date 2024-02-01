@@ -2,13 +2,23 @@
 <html>
 <head>
     <title>Flat ads</title>
+    <style>
+    .image-container {
+            display: flex;
+            flex-direction: row;
+        }
+    </style>
 </head>
 <body>
     <h1>Sreality ads</h1>
     {% for ad in ads %}
     <div>
         <h2>{{ ad.title }}</h2>
-        <img src="{{ ad.image }}" alt="{{ ad.title }}">
+        <div class="image-container">
+            <img src="{{ ad.image1 }}" alt="{{ ad.title }}">
+            <img src="{{ ad.image2 }}" alt="{{ ad.title }}">
+            <img src="{{ ad.image3 }}" alt="{{ ad.title }}">
+        </div>
     </div>
     {% endfor %}
 </body>
