@@ -7,17 +7,28 @@ class SrealitySpider(scrapy.Spider):
 
     def parse(self, response):
         names = response.css('span.name.ng-binding::text').getall()
-        print(names)
-
+        
+        url_string = response.url
+        page = 1
+        try:
+            first_num = int(url_string.split("=")[1][0])
+            second_num = int(url_string.split("=")[1][1])
+            page = 10 * first_num + second_num
+        except:
+            page = int(url_string.split("=")[1][0])
         images = response.css('div._2xzMRvpz7TDA2twKCXTS4R > a > img::attr(src)').getall()
 
         grouped_images = [images[i:i + 3] for i in range(0, len(images), 3)]
-
+        
+        order = 0
         for name, image_set in zip(names, grouped_images):
             image_set += [''] * (3 - len(image_set))
+            order += 1
+            print(page, order, (page - 1) * 20 + order)
             yield {
                 'name': name,
                 'image1': image_set[0] if len(image_set) > 0 else '',
                 'image2': image_set[1] if len(image_set) > 1 else '',
-                'image3': image_set[2] if len(image_set) > 2 else ''
+                'image3': image_set[2] if len(image_set) > 2 else '',
+                'number': (page - 1) * 20 + order,
             }

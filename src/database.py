@@ -5,7 +5,7 @@ import csv
 def create_table(conn):
     cursor = conn.cursor()
     try:
-        cursor.execute("DELETE FROM flats")
+        cursor.execute("DROP TABLE IF EXISTS flats")
     except:
         print("Flats does not exist")
     cursor.execute("""
@@ -14,7 +14,8 @@ def create_table(conn):
             title VARCHAR(255),
             image1 VARCHAR(255),
             image2 VARCHAR(255),
-            image3 VARCHAR(255)
+            image3 VARCHAR(255),
+            number INTEGER
         );
     """)
     conn.commit()
@@ -26,10 +27,9 @@ def insert_data(file_path):
         'dbname': 'flats',
         'user': 'kraljak',
         'password': '123456',
-        'port': 5432  # default PostgreSQL port
+        'port': 5432 
     }
     
-    # Connect to your PostgreSQL database
     conn = psycopg2.connect(
         host=db_config['host'],
         dbname=db_config['dbname'],
@@ -46,8 +46,8 @@ def insert_data(file_path):
         reader = csv.reader(file)
         next(reader)
         for row in reader:
-            title, image1, image2, image3 = row
-            cursor.execute("INSERT INTO flats (title, image1, image2, image3) VALUES (%s, %s, %s, %s)", row)
+            title, image1, image2, image3, number = row
+            cursor.execute("INSERT INTO flats (title, image1, image2, image3, number) VALUES (%s, %s, %s, %s, %s)", row)
 
     conn.commit()
     cursor.close()
@@ -71,7 +71,7 @@ def fetch_ads_data():
         port=db_config['port']
     )
     
-    query = "SELECT title, image1, image2, image3 FROM flats ORDER BY id"
+    query = "SELECT title, image1, image2, image3 FROM flats ORDER BY number"
     ads_df = pd.read_sql(query, conn)
     
     ads_dict = ads_df.to_dict(orient='records')
