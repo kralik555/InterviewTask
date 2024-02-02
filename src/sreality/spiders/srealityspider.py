@@ -3,10 +3,11 @@ import scrapy
 class SrealitySpider(scrapy.Spider):
     name = 'srealityspider'
     allowed_domains = ['sreality.cz']
-    start_urls = [f'https://www.sreality.cz/hledani/prodej/byty?strana={i}_escaped_fragment_=' for i in range(1, 26)]
+    start_urls = [f"https://www.sreality.cz/hledani/prodej/byty?strana={i}_escaped_fragment_=" for i in range(1, 26)]
 
     def parse(self, response):
         names = response.css('span.name.ng-binding::text').getall()
+        print(names)
 
         images = response.css('div._2xzMRvpz7TDA2twKCXTS4R > a > img::attr(src)').getall()
 

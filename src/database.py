@@ -4,6 +4,10 @@ import csv
 
 def create_table(conn):
     cursor = conn.cursor()
+    try:
+        cursor.execute("DELETE FROM flats")
+    except:
+        print("Flats does not exist")
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS flats (
             id SERIAL PRIMARY KEY,
@@ -67,7 +71,7 @@ def fetch_ads_data():
         port=db_config['port']
     )
     
-    query = "SELECT title, image1, image2, image3 FROM flats"
+    query = "SELECT title, image1, image2, image3 FROM flats ORDER BY id"
     ads_df = pd.read_sql(query, conn)
     
     ads_dict = ads_df.to_dict(orient='records')

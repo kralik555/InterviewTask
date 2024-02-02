@@ -7,14 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "sreality"
+BOT_NAME = "srealityspider"
 
 SPIDER_MODULES = ["sreality.spiders"]
 NEWSPIDER_MODULE = "sreality.spiders"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = "sreality (+http://www.yourdomain.com)"
+USER_AGENT = "srealityspider (https://www.sreality.cz)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -92,18 +92,3 @@ REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
 
-# Enable or add Splash to the downloader middleware
-DOWNLOADER_MIDDLEWARES = {
-    'scrapy_splash.SplashCookiesMiddleware': 723,
-    'scrapy_splash.SplashMiddleware': 725,
-    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
-}
-
-# Set Splash server address
-SPLASH_URL = 'http://localhost:8050'
-
-# Use a custom DUPEFILTER_CLASS
-DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
-
-# If you use Scrapy's HTTP cache, SplashAwareFSCacheStorage is recommended
-HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'

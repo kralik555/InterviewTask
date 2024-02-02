@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    ads = databasefetch_ads_data()
+    ads = database.fetch_ads_data()
     return render_template('index.html', ads=ads)
 
 def main():

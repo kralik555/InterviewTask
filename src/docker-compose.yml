@@ -17,11 +17,15 @@ services:
       - "8080:8080"
     depends_on:
       - db
+    environment:
+      - MODE=web
 
   scrapy:
-    build: .  # You can specify the path to your Scrapy project's Dockerfile
+    build: .
     container_name: scrapy
     volumes:
-      - .:/app  # Assuming your Scrapy project is in the current directory
+      - .:/app
     depends_on:
       - db
+    environment:
+      - MODE=scrapy
