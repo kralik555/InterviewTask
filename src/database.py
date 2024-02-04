@@ -12,6 +12,8 @@ def create_table(conn):
         CREATE TABLE IF NOT EXISTS flats (
             id SERIAL PRIMARY KEY,
             title VARCHAR(255),
+            location VARCHAR(255),
+            cost VARCHAR(255),
             image1 VARCHAR(255),
             image2 VARCHAR(255),
             image3 VARCHAR(255),
@@ -46,8 +48,8 @@ def insert_data(file_path):
         reader = csv.reader(file)
         next(reader)
         for row in reader:
-            title, image1, image2, image3, number = row
-            cursor.execute("INSERT INTO flats (title, image1, image2, image3, number) VALUES (%s, %s, %s, %s, %s)", row)
+            title, location, cost, image1, image2, image3, number = row
+            cursor.execute("INSERT INTO flats (title, location, cost, image1, image2, image3, number) VALUES (%s, %s, %s, %s, %s, %s, %s)", row)
 
     conn.commit()
     cursor.close()
@@ -71,7 +73,7 @@ def fetch_ads_data():
         port=db_config['port']
     )
     
-    query = "SELECT title, image1, image2, image3 FROM flats ORDER BY number"
+    query = "SELECT title, location, cost, image1, image2, image3 FROM flats ORDER BY number"
     ads_df = pd.read_sql(query, conn)
     
     ads_dict = ads_df.to_dict(orient='records')
